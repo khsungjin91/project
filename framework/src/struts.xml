@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+ "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ <package name="main" extends="struts-default"><!-- java의 package와 같은기능 -->
+
+<interceptors>
+	<interceptor name="test" class="test.inter.TestInterceptor"/>
+	<interceptor name="timer" class="test.inter.Timer"/>
+	<interceptor name="loginaware" class="test.inter.LoginDaoInterceptor"/>
+	<interceptor name="dao" class="test.action.DAOInterceptor"/>
+	<interceptor name="sqlMap" class="test.inter.IbatisInterceptor"/>
+</interceptors>
+
+<!-- 에러가 나면 통합적으로 관리가 되는 result -->
+	<global-results>
+		<result name="error">/error/error.jsp</result>
+	</global-results>
+
+ <action name="userinput" class="To0405.Ex1.UserFormAction">
+ 		<result>/0405/userinput.jsp</result>
+ </action>
+ 
+ 
+  <action name="user" class="To0405.Ex1.UserAction">
+  		<interceptor-ref name="prepare"/>
+ 		 	<result>/0405/save.jsp</result>
+ 		
+  </action>
+ 
+ 
+ 
+ 
+ <action name="inputForm" class="To0406.EX.InputFormAction">
+ 	<result>/0406/inputForm.jsp</result>
+ </action>
+ 
+ 
+ <action name="inputPro" class="To0406.EX.InputProAction">
+ 	<interceptor-ref name="prepare"/> 
+ 	<interceptor-ref name="params"/> 
+ 	<interceptor-ref name="test"/>
+ 	
+ 	<result>/0406/inputPro.jsp</result>
+ </action>
+ 
+ 
+ <action name="time" class="To0406.EX.TimeStartAction">
+ 	<result>/0406/time.jsp</result>
+ </action>
+ 
+ <action name="timePro" class="To0406.EX.TimeAction">
+ 	<param name="num1">20</param>
+ 	<param name="num2">20</param>
+ 	<interceptor-ref name="staticParams"/>
+ 	<interceptor-ref name="params"/> 	
+ 	<interceptor-ref name="prepare"/>
+ 	<interceptor-ref name="modelDriven"/>
+
+ 	<result>/0406/timePro.jsp</result>
+ </action>
+ 
+ 
+	<action name="login" class="login.action.LoginAction">
+		 <result>/0406/login.jsp</result> 
+	</action>
+ 
+ 
+	<action name="loginPro" class="login.action.LoginProAction">
+ 		<interceptor-ref name="prepare"/>
+ 		<interceptor-ref name="modelDriven"/>
+ 		<interceptor-ref name="params"/>
+ 		<interceptor-ref name="loginaware"/>
+	 	<result>/0406/loginPro.jsp</result>
+ 
+	</action>
+ 
+ 
+	<action name="di" class="test.action.DiAction">
+ 		<interceptor-ref name="servletConfig"/>
+ 		<interceptor-ref name="dao"/>
+ 		<result>/0407/form.jsp</result>
+	</action>
+ 
+ 	<action name="upload" class="test.upload.UploadAction">
+ 
+ 		<interceptor-ref name="fileUpload"/>
+ 		<interceptor-ref name="params"/>
+ 		<result>/0408/upload.jsp</result>
+ 	
+	 </action>
+ 
+ 
+ 	<action name="first" class="test.result.FirstAction">
+ 		<result type="redirect-action">second</result>
+ 	</action>
+ 
+ 	<action name="second" class="test.result.SecondAction">
+ 		<result>/0408/second.jsp</result>
+ 	</action>
+ 
+
+	<action name="download" class="test.result.DownAction">
+		 <result type="stream">
+		 	<param name="inputName">inputStream</param>
+		 	<param name="contentDisposition">attachment;fileName=${fileName}</param>
+		 	<param name="bufferSize">10240000</param>
+		 </result>
+	</action>
+	
+	<action name="testList" class="test.ibatis.TestListAction">	
+		<result>/0411/testList.jsp</result>	
+	</action>
+ 
+ 	<action name="insert" class="test.ibatis.InsertAction">
+ 	<interceptor-ref name="sqlMap"/>
+ 	<interceptor-ref name="prepare"/>
+ 	<interceptor-ref name="modelDriven"/>
+ 	<interceptor-ref name="params"/>
+ 		<result>/0412/result.jsp</result>
+ 	</action>
+ 
+ </package> 
+</struts>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap >
+	
+	<typeAlias alias="dto" type="test.ibatis.TestDTO"/>
+	<resultMap class="dto" id="dtoMap">
+		<result property="id" column="id"/>
+		<result property="pw" column="pw"/>
+		<result property="age" column="rownum"/>
+	</resultMap>
+	
+	
+	
+	
+	<select id="list" resultClass="dto">
+		select * from test
+	</select>
+	
+	<select id="writer" resultClass="dto" parameterClass="String">
+		select * from test where id=#id# 
+	</select>
+	
+	<select id="readcount" resultClass="int">
+		select count(*) from test where=?
+	</select>
+	
+	
+	<select id="list2" resultMap="dtoMap">
+		select id,pw,rownum from test
+	</select>
+	
+	
+	<insert id="insert" parameterClass="dto">
+		insert into test values(#id#,#pw#,#name#,#age#)
+	</insert>
+
+</sqlMap>
+
