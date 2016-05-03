@@ -5,5 +5,5 @@
 id:<input type="text" name="id"><br/>
 pw:<input type="password" name="pw"><br/>
 <input type="submit" value="Àü¼Û">
-
+¤·¤·¤·
 </form>
